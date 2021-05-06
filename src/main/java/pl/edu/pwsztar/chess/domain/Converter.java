@@ -4,12 +4,17 @@ import pl.edu.pwsztar.chess.dto.FigureMoveDto;
 
 import java.awt.*;
 
-class Converter {
+abstract class Converter {
+
     public Converter() {
+
     }
 
-    Point convert(FigureMoveDto figureMoveDto){
-        return Point = new Point(figureMoveDto.getSource().charAt(0), figureMoveDto.getSource().charAt(2));
-        return Point = new Point(figureMoveDto.getSource().charAt(0), figureMoveDto.getSource().charAt(2));
+    static Point convertSource(FigureMoveDto figureMoveDto) {
+        return new Point(figureMoveDto.getSource().charAt(0), figureMoveDto.getSource().charAt(2));
+    }
+
+    static Point convertDestination(FigureMoveDto figureMoveDto) {
+        return new Point(figureMoveDto.getDestination().charAt(0), figureMoveDto.getDestination().charAt(2));
     }
 }

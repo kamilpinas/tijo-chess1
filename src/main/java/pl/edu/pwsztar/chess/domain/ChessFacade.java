@@ -10,9 +10,9 @@ public class ChessFacade {
 
 
     public boolean bishopMove(FigureMoveDto figureMoveDto) {
-        Point source = new Point(figureMoveDto.getSource().charAt(0), figureMoveDto.getSource().charAt(2));
-        Point destination = new Point(figureMoveDto.getDestination().charAt(0), figureMoveDto.getDestination().charAt(2));
-        return Correctness.isCorrect(source,destination);
+        Point source = Converter.convertSource(figureMoveDto);
+        Point destination = Converter.convertDestination(figureMoveDto);
+        return Correctness.isCorrect(source, destination);
     }
 
 
