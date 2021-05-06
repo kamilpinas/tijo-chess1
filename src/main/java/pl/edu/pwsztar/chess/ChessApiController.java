@@ -1,4 +1,4 @@
-package pl.edu.pwsztar.controller;
+package pl.edu.pwsztar.chess;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,21 +8,33 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.edu.pwsztar.domain.dto.FigureMoveDto;
+import pl.edu.pwsztar.chess.domain.ChessFacade;
+import pl.edu.pwsztar.chess.dto.FigureMoveDto;
 
 @Controller
 @RequestMapping(value="/api")
-public class ChessApiController {
+class ChessApiController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ChessApiController.class);
+    private final ChessFacade chessFacade;
+
+    public ChessApiController(ChessFacade chessFacade){
+        this.chessFacade=chessFacade;
+    }
 
     @CrossOrigin
     @PostMapping(value = "/chess/is-correct-move")
     public ResponseEntity<Boolean> isCorrectMove(@RequestBody FigureMoveDto figureMoveDto) {
         LOGGER.info("*** move details : {}", figureMoveDto);
-
+        if(chessFacade.bishopMove(figureMoveDto))
+        {
+            return ResponseEntity.ok(true);
+        }
+        else{
+            return ResponseEntity.ok(false);
+        }
         // TODO: true = ruch dozwolony (figura moze przemiescic sie z punktu source do punktu destination)
         // TODO: false = ruch zabroniony (figura nie moze przemiescic sie z punktu source do punktu destination)
-        return ResponseEntity.ok(true);     // TODO: teraz figura moze przemieszczac sie do dowolnego pola
+        // TODO: teraz figura moze przemieszczac sie do dowolnego pola
     }
 }
